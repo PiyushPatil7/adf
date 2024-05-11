@@ -1,0 +1,146 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "databricks-course-adf77"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"destination_data_lake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'destination_data_lake'"
+		},
+		"ls_demo_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_demo'"
+		},
+		"ls_formula1dl_storage_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_formula1dl_storage'"
+		},
+		"ls_postgre_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_postgre'"
+		},
+		"source_datalake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'source_datalake'"
+		},
+		"destination_data_lake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://formula1dl7794.dfs.core.windows.net/"
+		},
+		"ls_databricks_course_ws_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0421-105532-rd3ymh60"
+		},
+		"ls_demo_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://formula1dl7794.dfs.core.windows.net/"
+		},
+		"ls_formula1dl_storage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://formula1dl7794.dfs.core.windows.net/"
+		},
+		"source_datalake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://formula1dl7794.dfs.core.windows.net/"
+		},
+		"tr_process_formula1_data_properties_pipeline_parameters_p_window_end_date": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowEndTime"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "databricks-course-adf77_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
+					"destination_data_lake_accountKey": {
+						"value": "[parameters('destination_data_lake_accountKey')]"
+					},
+					"ls_demo_accountKey": {
+						"value": "[parameters('ls_demo_accountKey')]"
+					},
+					"ls_formula1dl_storage_accountKey": {
+						"value": "[parameters('ls_formula1dl_storage_accountKey')]"
+					},
+					"ls_postgre_connectionString": {
+						"value": "[parameters('ls_postgre_connectionString')]"
+					},
+					"source_datalake_accountKey": {
+						"value": "[parameters('source_datalake_accountKey')]"
+					},
+					"destination_data_lake_properties_typeProperties_url": {
+						"value": "[parameters('destination_data_lake_properties_typeProperties_url')]"
+					},
+					"ls_databricks_course_ws_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('ls_databricks_course_ws_properties_typeProperties_existingClusterId')]"
+					},
+					"ls_demo_properties_typeProperties_url": {
+						"value": "[parameters('ls_demo_properties_typeProperties_url')]"
+					},
+					"ls_formula1dl_storage_properties_typeProperties_url": {
+						"value": "[parameters('ls_formula1dl_storage_properties_typeProperties_url')]"
+					},
+					"source_datalake_properties_typeProperties_url": {
+						"value": "[parameters('source_datalake_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "databricks-course-adf77_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"tr_process_formula1_data_properties_pipeline_parameters_p_window_end_date": {
+						"value": "[parameters('tr_process_formula1_data_properties_pipeline_parameters_p_window_end_date')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'databricks-course-adf77_ArmTemplate_0')]"
+			]
+		}
+	]
+}
