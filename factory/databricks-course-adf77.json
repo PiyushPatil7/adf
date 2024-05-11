@@ -1,0 +1,9 @@
+{
+	"name": "databricks-course-adf77",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "43902abe-9e42-4fae-b581-5ff18f70dc7e",
+		"tenantId": "642a08ed-f4f3-4f4e-87f5-d8cb1887332e"
+	}
+}
